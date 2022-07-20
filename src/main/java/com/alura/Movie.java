@@ -3,8 +3,10 @@ package com.alura;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import lombok.Getter;
+import lombok.Setter;
 
 @Getter
+@Setter
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Movie {
 
@@ -17,5 +19,6 @@ public class Movie {
   private String crew;
   private Double imDbRating;
   private Long imDbRatingCount;
+  private Double myRating;
 
 }

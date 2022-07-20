@@ -65,9 +65,11 @@ java -Dkey={$IMDB_API_KEY} -jar target/imersao-1.0-SNAPSHOT-jar-with-dependencie
 
 ## 🎈 Saída <a name="saida"></a>
 
-Exemplo de saída atual:
+Exemplos da saída atual:
 
-![My Image](images/aula1.jpeg)
+![Saida Padrão](images/Aula1.jpeg)
+
+![Saída com coleto de Nota](images/Aula1comDesafioSupremo.jpeg)
 
 ## 🚀 Desenvolvimento <a name = "desenvolvimento"></a>
 
