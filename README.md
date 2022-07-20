@@ -26,16 +26,16 @@
 
 ## 🧐 Sobre <a name = "sobre"></a>
 
-Código desenvolvido ao longo dessa imersão, aplicando o meu conhecimento em Java.
+Código a ser desenvolvido ao longo dessa imersão, aplicando o meu conhecimento em Java.
 
 
 ## 🏁 Começando <a name = "comecando"></a>
 
-Necessário conhecimento básico da liguagem Java, faz-se uso da JDK 17, podendo ser alterado para qualquer versão a partir do Java 8, mas atenção, com isso haverá alta possibilidade de quebra, corrija os erros com a refatoração. Veja a seção de [Desenvolvimento](#desenvolvimento) para saber o que vem por aí.
+Necessário conhecimento básico da liguagem Java. Faz uso da JDK 11, podendo ser alterado para qualquer versão, mas atenção, nesse cenário haverá alta possibilidade de quebra, corrija os erros na refatoração. Veja a seção de [Desenvolvimento](#desenvolvimento) para saber o que vem por aí.
 
 ### Pre-requisitos
 
-Verifique qual a versão do Java está instalado na sua máquina com o seguinte comando:
+Verifique a versão do Java, que está instalado na sua máquina com o seguinte comando:
 
 ```
 java --version
@@ -50,20 +50,16 @@ Caso não tenha instalado, ou precise atualizar para uma versão mais recente, e
 
 Faça os seguintes passos:
 
-### Compilando e empacotando o projeto
-
-Para gerar o arquivo _JAR_ :
+### Compilando e empacotando o projeto para gerar o arquivo _JAR_ :
 
 ```
-mvn clean build package
+mvn clean package
 ```
 
-### E adicionando o parâmetro
-
-Key e o seu valor, para as requisições da API:
+### E adicionando o parâmetro <strong>Key</strong> e o seu valor, para as requisições da API:
 
 ```
-java jar -Dkey=******** imersao.java
+java -Dkey={$IMDB_API_KEY} -jar target/imersao-1.0-SNAPSHOT-jar-with-dependencies.jar
 ```
 
 
@@ -80,7 +76,7 @@ Será adicionado como desafio, um arquivo .txt, contendo valores a serem utiliza
 
 ## ⛏️ Ferramentas <a name = "ferramentas"></a>
 
-- [Java](https://www.oracle.com/java/technologies/downloads/) - Java JDK
+- [Java](https://www.oracle.com/java/technologies/downloads/#java11) - Java JDK
 - [Maven](https://maven.apache.org/download.cgi) - Apache Maven Project
 
 
