@@ -1,6 +1,6 @@
 <p align="center">
   <a href="" rel="noopener">
- <img width=300px height=175px src="https://i.ytimg.com/vi/WdT90ffB-0Q/maxresdefault.jpg" alt="Project logo"></a>
+ <img width=400px height=200px src="https://i.ytimg.com/vi/WdT90ffB-0Q/maxresdefault.jpg" alt="Project logo"></a>
 </p>
 
 <h3 align="center">Projeto de Imersão em Java</h3>
@@ -31,7 +31,7 @@ Código a ser desenvolvido ao longo dessa imersão, aplicando o meu conhecimento
 
 ## 🏁 Começando <a name = "comecando"></a>
 
-Necessário conhecimento básico da liguagem Java. Faz uso da JDK 11, podendo ser alterado para qualquer versão, mas atenção, nesse cenário haverá alta possibilidade de quebra, corrija os erros na refatoração. Veja a seção de [Desenvolvimento](#desenvolvimento) para saber o que vem por aí.
+Necessário conhecimento básico da linguagem Java. Faz uso da JDK 11, podendo ser alterado para qualquer versão, mas atenção, nesse cenário haverá alta possibilidade de quebra, corrija os erros na refatoração. Veja a seção de [Desenvolvimento](#desenvolvimento) para saber o que vem por aí.
 
 ### Pre-requisitos
 
@@ -73,7 +73,12 @@ Exemplos da saída atual:
 
 ## 🚀 Desenvolvimento <a name = "desenvolvimento"></a>
 
-Será adicionado como desafio, um arquivo .txt, contendo valores a serem utilizados em um campo específico no objeto de retorno do JSON.
+Conteúdo a partir da Aula 02:
+- [x] Limpeza da classe Main (com.alura.App) e reorganização do projeto.
+- [ ] Extração da imagem da uma URL (campo do objeto de retorno da API IMDB);
+- [ ] Manipulação de imagens;
+- [ ] Salvar nova imagem em disco;
+- [ ] Desafios;
 
 
 ## ⛏️ Ferramentas <a name = "ferramentas"></a>
