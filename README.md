@@ -3,7 +3,13 @@
  <img width=400px height=200px src="https://i.ytimg.com/vi/WdT90ffB-0Q/maxresdefault.jpg" alt="Project logo"></a>
 </p>
 
-<h3 align="center">Projeto de Imersão em Java</h3>
+<h3 align="center">PROJETO DE IMERSÃO EM JAVA</h3>
+
+<div align="center">
+
+[![Status](https://img.shields.io/badge/Status-Em%20Desenvolvimento-green)]()
+
+</div>
 
 ---
 
@@ -75,9 +81,9 @@ Exemplos da saída atual:
 
 Conteúdo a partir da Aula 02:
 - [x] Limpeza da classe Main (com.alura.App) e reorganização do projeto.
-- [ ] Extração da imagem da uma URL (campo do objeto de retorno da API IMDB);
-- [ ] Manipulação de imagens;
-- [ ] Salvar nova imagem em disco;
+- [x] Extração da imagem da uma URL (campo do objeto de retorno da API IMDB);
+- [x] Manipulação de imagens;
+- [x] Salvar imagens em disco;
 - [ ] Desafios;
 
 

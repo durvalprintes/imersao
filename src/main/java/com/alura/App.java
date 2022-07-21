@@ -1,19 +1,21 @@
 package com.alura;
 
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
 
 import com.alura.model.Endpoint;
-import com.alura.service.WebService;
+import com.alura.service.impl.ImdbService;
 
+@SuppressWarnings("squid:S125")
 public class App {
 
     public static void main(String[] args) {
         try {
-            WebService imdb = new WebService(Endpoint.IMDB_MOST_POPULAR_TV, System.getProperty("key"));
-            imdb.updateWithMyRating(new FileInputStream(new File("data/rating.json")));
-            imdb.printMovies();
+            ImdbService api = new ImdbService(Endpoint.IMDB_MOST_POPULAR_TV, System.getProperty("key"));
+            // api.updateMoviesWithMyRating(new FileInputStream(new
+            // File("data/rating.json")));
+            api.shrinkListMovies(5);
+            // api.printMovies();
+            api.generateStickerPosterImage("data/image/sticker/");
         } catch (IOException e) {
             e.printStackTrace();
         } catch (InterruptedException e) {
