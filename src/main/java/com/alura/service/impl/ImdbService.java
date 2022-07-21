@@ -12,6 +12,7 @@ import com.alura.model.Endpoint;
 import com.alura.model.Movie;
 import com.alura.model.Poster;
 import com.alura.model.Rating;
+import com.alura.model.Sticker;
 import com.alura.service.WebService;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -75,19 +76,21 @@ public class ImdbService implements WebService {
     }
   }
 
-  public void generateStickerPosterImage(String output) {
-    System.out.print("Iniciando geração...");
+  public void generateStickerPosterImage(Sticker param) {
+    System.out.println("Iniciando geração...");
     this.movies.stream().forEach(
         movie -> {
           try {
+            System.out.print(movie.getTitle() + "... ");
             createSticker(
                 new URL(Pattern.compile("\\._(.+).jpg$").matcher(movie.getImage()).replaceAll(".jpg")).openStream(),
-                movie.getTitle(), output);
+                movie.getTitle(), movie.getImDbRating(), param);
+            System.out.println("OK!");
           } catch (IOException e) {
-            e.printStackTrace();
+            System.out.println("Fail!");
           }
         });
-    System.out.println("Finalizado!");
+    System.out.println("...Finalizado!");
   }
 
   /**

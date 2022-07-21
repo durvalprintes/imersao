@@ -1,3 +1,4 @@
 target
 .vscode
-sticker/
+data/image/sticker/*
+!joinha.png

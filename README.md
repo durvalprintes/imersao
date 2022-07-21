@@ -52,7 +52,7 @@ java --version
 Caso não tenha instalado, ou precise atualizar para uma versão mais recente, existe muitos tutoriais na internet que ajudam a fazer isso, de acordo com seu sistema operacional. Caso tenha dificuldade, só enviar um email, ou mensagem no Discord, que tentarei ajudar.
 
 
-## 🔧 Execução <a name = "execucao"></a>
+## 🚀 Execução <a name = "execucao"></a>
 
 Faça os seguintes passos:
 
@@ -79,14 +79,14 @@ Exemplos da saída atual:
 
 ![Geração de Stickers](data/image/readme/Aula2.jpeg)
 
-## 🚀 Desenvolvimento <a name = "desenvolvimento"></a>
+## 🔧 Desenvolvimento <a name = "desenvolvimento"></a>
 
 Conteúdo a partir da Aula 02:
 - [x] Limpeza da classe Main (com.alura.App) e reorganização do projeto.
 - [x] Extração da imagem da uma URL (campo do objeto de retorno da API IMDB);
 - [x] Manipulação de imagens;
 - [x] Salvar imagens em disco;
-- [ ] Desafios;
+- [x] Desafios;
 
 
 ## ⛏️ Ferramentas <a name = "ferramentas"></a>
