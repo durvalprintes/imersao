@@ -73,9 +73,11 @@ java -Dkey={$IMDB_API_KEY} -jar target/imersao-1.0-SNAPSHOT-jar-with-dependencie
 
 Exemplos da saída atual:
 
-![Saida Padrão](images/Aula1.jpeg)
+![Saida Padrão](data/image/readme/Aula1.jpeg)
 
-![Saída com coleto de Nota](images/Aula1comDesafioSupremo.jpeg)
+![Saída com coleto de Nota](data/image/readme/Aula1comDesafioSupremo.jpeg)
+
+![Geração de Stickers](data/image/readme/Aula2.jpeg)
 
 ## 🚀 Desenvolvimento <a name = "desenvolvimento"></a>
 
