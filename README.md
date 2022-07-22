@@ -62,12 +62,12 @@ Faça os seguintes passos:
 mvn clean package
 ```
 
-### E adicionando o parâmetro <strong>Key</strong> e o seu valor, para as requisições da API:
+### E adicionando o parâmetro <strong>Key</strong> e o seu valor, para as requisições das APIs:
 
 ```
-java -Dkey={$IMDB_API_KEY} -jar target/imersao-1.0-SNAPSHOT-jar-with-dependencies.jar
+ java -Dimdb_key=${IMDB_KEY} -Dmarvel_public_key=${MARVEL_PUBLIC_KEY} -Dmarvel_private_key=${MARVEL_PRIVATE_KEY}
+ -jar target/imersao-1.0-SNAPSHOT-jar-with-dependencies.jar
 ```
-
 
 ## 🎈 Saída <a name="saida"></a>
 
