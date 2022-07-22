@@ -62,7 +62,7 @@ Faça os seguintes passos:
 mvn clean package
 ```
 
-### E adicionando o parâmetro <strong>Key</strong> e o seu valor, para as requisições das APIs:
+### E adicionando os parâmetros (<strong>Keys</strong>), para autenticação, nas requisições das APIs:
 
 ```
  java -Dimdb_key=${IMDB_KEY} -Dmarvel_public_key=${MARVEL_PUBLIC_KEY} -Dmarvel_private_key=${MARVEL_PRIVATE_KEY}
