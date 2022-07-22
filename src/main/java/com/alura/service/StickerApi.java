@@ -10,6 +10,7 @@ import java.awt.font.TextLayout;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
@@ -20,7 +21,7 @@ import javax.imageio.ImageIO;
 import com.alura.model.Sticker;
 
 @SuppressWarnings("squid:S106")
-public interface WebService {
+public interface StickerApi {
 
   default String jsonFromGet(String url) throws IOException, InterruptedException {
     return HttpClient.newHttpClient()
@@ -33,9 +34,13 @@ public interface WebService {
     System.out.println(format + field + "\033[0m");
   }
 
-  public void print();
+  void shrinkList(int min, int max);
 
-  public void generateStickerImage(Sticker param);
+  void print();
+
+  void updateListWithInput(InputStream input) throws IOException;
+
+  void generateStickerImage();
 
   default void createSticker(Sticker param) throws IOException {
 

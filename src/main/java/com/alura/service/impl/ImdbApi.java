@@ -13,7 +13,7 @@ import com.alura.model.Movie;
 import com.alura.model.Poster;
 import com.alura.model.Rating;
 import com.alura.model.Sticker;
-import com.alura.service.WebService;
+import com.alura.service.StickerApi;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -23,13 +23,13 @@ import lombok.Setter;
 @Getter
 @Setter
 @SuppressWarnings("squid:S106")
-public class ImdbService implements WebService {
+public class ImdbApi implements StickerApi {
 
   private String key;
   private List<Movie> movies;
-  private final TreeMap<Integer, String> rangeRatingText = new TreeMap<>();
+  private final TreeMap<Integer, String> ratingText = new TreeMap<>();
 
-  public ImdbService(Endpoint endpoint, String key) throws IOException, InterruptedException {
+  public ImdbApi(Endpoint endpoint, String key) throws IOException, InterruptedException {
     this.key = key;
     this.movies = this.getListImdb(endpoint);
   }
@@ -59,11 +59,11 @@ public class ImdbService implements WebService {
     }
   }
 
-  public void shrinkListMovies(int max) {
-    setMovies(this.movies.subList(0, max));
+  public void shrinkList(int min, int max) {
+    setMovies(this.movies.subList(min, max));
   }
 
-  public void updateMoviesWithMyRating(InputStream inputRating) throws IOException {
+  public void updateListWithInput(InputStream inputRating) throws IOException {
     List<Rating> listRating = new ObjectMapper().readValue(inputRating, new TypeReference<List<Rating>>() {
     });
     if (!listRating.isEmpty()) {
@@ -79,12 +79,12 @@ public class ImdbService implements WebService {
   }
 
   @Override
-  public void generateStickerImage(Sticker param) {
-    rangeRatingText.put(0, "AVALIAR");
-    rangeRatingText.put(1, "PESSIMO");
-    rangeRatingText.put(4, "RUIM");
-    rangeRatingText.put(6, "PASSATEMPO");
-    rangeRatingText.put(8, "TOP");
+  public void generateStickerImage() {
+    ratingText.put(0, "AVALIAR");
+    ratingText.put(1, "PESSIMO");
+    ratingText.put(4, "RUIM");
+    ratingText.put(6, "PASSATEMPO");
+    ratingText.put(8, "TOP");
 
     System.out.println("Iniciando geração...");
     this.movies.stream().forEach(
@@ -92,19 +92,21 @@ public class ImdbService implements WebService {
           try {
             System.out.print(movie.getTitle() + "... ");
             Double rating = Optional.ofNullable(movie.getImDbRating()).isPresent() ? movie.getImDbRating() : 0;
-            String text = rangeRatingText.floorEntry((int) Math.round(rating)).getValue();
-
-            param.setImage(new URL(movie.getImage().replaceAll("\\._(.+).jpg$", ".jpg")).openStream());
-            param.setText(text);
-            param.setTop(false);
-            if (rangeRatingText.lastEntry().getValue().equals(text)) {
-              param.setTop(true);
-            }
-            param.setOutputName(movie.getTitle());
-            createSticker(param);
-            System.out.println("OK!");
+            String text = ratingText.floorEntry((int) Math.round(rating)).getValue();
+            createSticker(Sticker.builder()
+                .image(new URL(movie.getImage().replaceAll("\\._(.+).jpg$", ".jpg")).openStream())
+                .targetWidth(1000)
+                .targetHeight(1500)
+                .text(text)
+                .fontName("Impact")
+                .fontSize(128)
+                .isTop(ratingText.lastEntry().getValue().equals(text))
+                .topImage("data/image/sticker/joinha.png")
+                .outputPath("data/image/sticker/")
+                .outputName(movie.getTitle()).build());
+            System.out.println("Ok!");
           } catch (IOException e) {
-            System.out.println("Fail!");
+            System.out.println("Fail: " + e.getMessage());
           }
         });
     System.out.println("...Finalizado!");
