@@ -79,6 +79,8 @@ Exemplos da saída atual:
 
 ![Geração de Stickers](data/image/readme/Aula2.jpeg)
 
+![Geração personalizada de Stickers](data/image/readme/Aula2comDesafios.jpeg)
+
 ## 🔧 Desenvolvimento <a name = "desenvolvimento"></a>
 
 Conteúdo a partir da Aula 02:
