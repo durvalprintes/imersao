@@ -1,6 +1,6 @@
 <p align="center">
   <a href="" rel="noopener">
- <img width=400px height=200px src="https://i.ytimg.com/vi/WdT90ffB-0Q/maxresdefault.jpg" alt="Project logo"></a>
+ <img width=450px height=250px src="https://i.ytimg.com/vi/WdT90ffB-0Q/maxresdefault.jpg" alt="Project logo"></a>
 </p>
 
 <h3 align="center">PROJETO DE IMERSÃO EM JAVA</h3>
@@ -80,6 +80,8 @@ Exemplos da saída atual:
 ![Geração de Stickers](data/image/readme/Aula2.jpeg)
 
 ![Geração personalizada de Stickers](data/image/readme/Aula2comDesafios.jpeg)
+
+![Saída com informações da Api da MARVEL](data/image/readme/Aula3.jpeg)
 
 ## 🔧 Desenvolvimento <a name = "desenvolvimento"></a>
 
