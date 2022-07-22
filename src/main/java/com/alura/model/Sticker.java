@@ -2,36 +2,45 @@ package com.alura.model;
 
 import java.awt.Color;
 import java.awt.Font;
-import java.util.TreeMap;
+import java.io.InputStream;
 
 import lombok.Builder;
 import lombok.Getter;
+import lombok.Setter;
 
 @Getter
+@Setter
 @Builder
 public class Sticker {
 
-  private String output;
-  private TreeMap<Integer, String> rangeText;
-  private String font;
-  private Integer size;
+  private InputStream image;
+  private String topImage;
+  private String text;
+  private String outputPath;
+  private String outputName;
+  private String fontName;
+  private Integer fontSize;
+  private int targetWidth;
+  private int targetHeight;
 
   @Builder.Default
-  private int style = Font.BOLD;
+  private int fontStyle = Font.BOLD;
 
   @Builder.Default
-  private Color colorText = Color.BLACK;
+  private Color textColor = Color.BLACK;
 
   @Builder.Default
-  private Float stroke = 5F;
+  private Float strokeNumber = 5F;
 
   @Builder.Default
-  private Color colorStroke = Color.YELLOW;
+  private Color strokeColor = Color.YELLOW;
 
   @Builder.Default
   private Integer heightPlus = 200;
 
   @Builder.Default
-  private String format = "png";
+  private String outputFormat = "png";
 
+  @Builder.Default
+  private boolean isTop = false;
 }

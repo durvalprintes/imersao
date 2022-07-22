@@ -5,7 +5,7 @@ import java.io.InputStream;
 import java.net.URL;
 import java.util.List;
 import java.util.Optional;
-import java.util.regex.Pattern;
+import java.util.TreeMap;
 import java.util.stream.Collectors;
 
 import com.alura.model.Endpoint;
@@ -27,6 +27,7 @@ public class ImdbService implements WebService {
 
   private String key;
   private List<Movie> movies;
+  private final TreeMap<Integer, String> rangeRatingText = new TreeMap<>();
 
   public ImdbService(Endpoint endpoint, String key) throws IOException, InterruptedException {
     this.key = key;
@@ -42,7 +43,8 @@ public class ImdbService implements WebService {
             Movie.class));
   }
 
-  public void printMovies() {
+  @Override
+  public void print() {
     for (Movie movie : this.movies) {
       printField("\033[1;37m", "\nTitulo: " + movie.getTitle());
       printField("\033[1;37m", "Image: " + movie.getImage());
@@ -76,15 +78,30 @@ public class ImdbService implements WebService {
     }
   }
 
-  public void generateStickerPosterImage(Sticker param) {
+  @Override
+  public void generateStickerImage(Sticker param) {
+    rangeRatingText.put(0, "AVALIAR");
+    rangeRatingText.put(1, "PESSIMO");
+    rangeRatingText.put(4, "RUIM");
+    rangeRatingText.put(6, "PASSATEMPO");
+    rangeRatingText.put(8, "TOP");
+
     System.out.println("Iniciando geração...");
     this.movies.stream().forEach(
         movie -> {
           try {
             System.out.print(movie.getTitle() + "... ");
-            createSticker(
-                new URL(Pattern.compile("\\._(.+).jpg$").matcher(movie.getImage()).replaceAll(".jpg")).openStream(),
-                movie.getTitle(), movie.getImDbRating(), param);
+            Double rating = Optional.ofNullable(movie.getImDbRating()).isPresent() ? movie.getImDbRating() : 0;
+            String text = rangeRatingText.floorEntry((int) Math.round(rating)).getValue();
+
+            param.setImage(new URL(movie.getImage().replaceAll("\\._(.+).jpg$", ".jpg")).openStream());
+            param.setText(text);
+            param.setTop(false);
+            if (rangeRatingText.lastEntry().getValue().equals(text)) {
+              param.setTop(true);
+            }
+            param.setOutputName(movie.getTitle());
+            createSticker(param);
             System.out.println("OK!");
           } catch (IOException e) {
             System.out.println("Fail!");

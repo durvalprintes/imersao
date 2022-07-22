@@ -3,7 +3,6 @@ package com.alura.service;
 import static java.awt.Transparency.TRANSLUCENT;
 
 import java.awt.BasicStroke;
-import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics2D;
 import java.awt.Shape;
@@ -11,12 +10,10 @@ import java.awt.font.TextLayout;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
 import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse.BodyHandlers;
-import java.util.Optional;
 
 import javax.imageio.ImageIO;
 
@@ -36,56 +33,53 @@ public interface WebService {
     System.out.println(format + field + "\033[0m");
   }
 
-  default void createSticker(InputStream inputImage, String title, Double rating, Sticker param) throws IOException {
+  public void print();
 
-    BufferedImage movieImage = ImageIO.read(inputImage);
-    int width = movieImage.getWidth();
-    int height = movieImage.getHeight();
+  public void generateStickerImage(Sticker param);
 
-    if (width > 1000 || height > 1500) {
+  default void createSticker(Sticker param) throws IOException {
+
+    BufferedImage original = ImageIO.read(param.getImage());
+    int width = original.getWidth();
+    int height = original.getHeight();
+
+    if (width > param.getTargetWidth() || height > param.getTargetHeight()) {
       Double scale = Math.min(
-          width > 1000 ? 1000 / Double.valueOf(width) : 1,
-          height > 1500 ? 1500 / Double.valueOf(height) : 1);
-      width = (int) (movieImage.getWidth() * scale);
-      height = (int) (movieImage.getHeight() * scale);
+          width > param.getTargetWidth() ? param.getTargetWidth() / Double.valueOf(width) : 1,
+          height > param.getTargetHeight() ? param.getTargetHeight() / Double.valueOf(height) : 1);
+      width = (int) (original.getWidth() * scale);
+      height = (int) (original.getHeight() * scale);
     }
 
     BufferedImage sticker = new BufferedImage(width, height + param.getHeightPlus(),
         TRANSLUCENT);
 
     Graphics2D graphic = (Graphics2D) sticker.getGraphics();
-    graphic.drawImage(movieImage, 0, 0, width, height, null);
+    graphic.drawImage(original, 0, 0, width, height, null);
 
-    Optional.ofNullable(rating).ifPresent(value -> {
-      if (param.getRangeText().floorEntry((int) Math.round(value)).equals(param.getRangeText().lastEntry())) {
-        try {
-          BufferedImage joinha = ImageIO.read(new File("data/image/sticker/joinha.png"));
-          graphic.drawImage(
-              joinha, sticker.getWidth() - joinha.getWidth() + 35,
-              sticker.getHeight() - joinha.getHeight(),
-              null);
-        } catch (IOException e) {
-          e.printStackTrace();
-        }
-      }
-    });
+    if (param.isTop()) {
+      BufferedImage topImage = ImageIO.read(new File(param.getTopImage()));
+      graphic.drawImage(
+          topImage, sticker.getWidth() - topImage.getWidth() + 35,
+          sticker.getHeight() - topImage.getHeight(),
+          null);
+    }
 
-    var font = new Font("Impact", Font.PLAIN, 128);
+    var font = new Font(param.getFontName(), param.getFontStyle(), param.getFontSize());
     Shape textShape = new TextLayout(
-        param.getRangeText().floorEntry((int) Math.round(Optional.ofNullable(rating).isPresent() ? rating : 0.0))
-            .getValue(),
-        font, graphic.getFontRenderContext()).getOutline(null);
+        param.getText(), font, graphic.getFontRenderContext()).getOutline(null);
 
     graphic.translate((sticker.getWidth() - textShape.getBounds().width) / 2,
         ((param.getHeightPlus() - textShape.getBounds().height) / 2) + textShape.getBounds().height
             + height);
-    graphic.setColor(Color.BLACK);
+    graphic.setColor(param.getTextColor());
     graphic.fill(textShape);
-    graphic.setStroke(new BasicStroke(5));
-    graphic.setColor(Color.YELLOW);
+    graphic.setStroke(new BasicStroke(param.getStrokeNumber()));
+    graphic.setColor(param.getStrokeColor());
     graphic.draw(textShape);
 
-    ImageIO.write(sticker, param.getFormat(), new File(param.getOutput() + title + "." + param.getFormat()));
+    ImageIO.write(sticker, param.getOutputFormat(),
+        new File(param.getOutputPath() + param.getOutputName() + "." + param.getOutputFormat()));
   }
 
 }
