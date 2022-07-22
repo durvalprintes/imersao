@@ -9,10 +9,10 @@ import java.util.TreeMap;
 import java.util.stream.Collectors;
 
 import com.alura.model.Endpoint;
-import com.alura.model.Movie;
-import com.alura.model.Poster;
-import com.alura.model.Rating;
 import com.alura.model.Sticker;
+import com.alura.model.imdb.Movie;
+import com.alura.model.imdb.Poster;
+import com.alura.model.imdb.Rating;
 import com.alura.service.StickerApi;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -86,7 +86,7 @@ public class ImdbApi implements StickerApi {
     ratingText.put(6, "PASSATEMPO");
     ratingText.put(8, "TOP");
 
-    System.out.println("Iniciando geração...");
+    System.out.println("Iniciando geração de Stickers do IMDB...");
     this.movies.stream().forEach(
         movie -> {
           try {

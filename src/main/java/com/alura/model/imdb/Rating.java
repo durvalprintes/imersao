@@ -1,4 +1,4 @@
-package com.alura.model;
+package com.alura.model.imdb;
 
 import lombok.Getter;
 

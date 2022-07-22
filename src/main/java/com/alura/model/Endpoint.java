@@ -5,7 +5,8 @@ public enum Endpoint {
   IMDB_MOST_POPULAR_MOVIES("https://imdb-api.com/en/API/MostPopularMovies/"),
   IMDB_TOP_250_TV("https://imdb-api.com/en/API/Top250TVs/"),
   IMDB_MOST_POPULAR_TV("https://imdb-api.com/en/API/MostPopularTVs/"),
-  IMDB_POSTERS("https://imdb-api.com/en/API/Posters/");
+  IMDB_POSTERS("https://imdb-api.com/en/API/Posters/"),
+  MARVEL_COMIC_CHARACTERS("https://gateway.marvel.com:443/v1/public/characters");
 
   private String url;
 

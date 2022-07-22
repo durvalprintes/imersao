@@ -1,4 +1,4 @@
-package com.alura.model;
+package com.alura.model.imdb;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 

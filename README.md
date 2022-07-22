@@ -83,12 +83,12 @@ Exemplos da saída atual:
 
 ## 🔧 Desenvolvimento <a name = "desenvolvimento"></a>
 
-Conteúdo a partir da Aula 02:
-- [x] Limpeza da classe Main (com.alura.App) e reorganização do projeto.
-- [x] Extração da imagem da uma URL (campo do objeto de retorno da API IMDB);
-- [x] Manipulação de imagens;
-- [x] Salvar imagens em disco;
-- [x] Desafios;
+Conteúdo a partir da Aula 03:
+- [x] Reestruturação do projeto para consumir a Api da MARVEL.
+- [x] Sobrescrita do método de saída no terminal com informacões da nova Api;
+- [ ] Sobrescrita do método de geração de Stickers para imagens da nova Api;
+- [ ] Uso de uma classe de exceção personalizado;
+- [ ] Upgrade da JDK do projeto, para implementar casos de uso com classes <strong>Record</strong>;
 
 
 ## ⛏️ Ferramentas <a name = "ferramentas"></a>
