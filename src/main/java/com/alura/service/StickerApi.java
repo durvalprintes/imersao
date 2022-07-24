@@ -19,7 +19,7 @@ import java.net.http.HttpResponse.BodyHandlers;
 import javax.imageio.ImageIO;
 
 import com.alura.exception.StickerApiException;
-import com.alura.model.Sticker;
+import com.alura.model.ParamSticker;
 
 @SuppressWarnings("squid:S106")
 public interface StickerApi {
@@ -50,7 +50,7 @@ public interface StickerApi {
 
   void generateStickers() throws StickerApiException;
 
-  default void createSticker(Sticker param) throws StickerApiException {
+  default void createSticker(ParamSticker param) throws StickerApiException {
     try {
       BufferedImage original = ImageIO.read(param.getImage());
       int width = original.getWidth();

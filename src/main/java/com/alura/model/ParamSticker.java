@@ -9,7 +9,7 @@ import lombok.Getter;
 
 @Getter
 @Builder
-public class Sticker {
+public class ParamSticker {
 
   private InputStream image;
   private String topImage;

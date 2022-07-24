@@ -12,7 +12,7 @@ import java.util.stream.StreamSupport;
 
 import com.alura.exception.StickerApiException;
 import com.alura.model.Endpoint;
-import com.alura.model.Sticker;
+import com.alura.model.ParamSticker;
 import com.alura.model.marvel.Character;
 import com.alura.model.marvel.PaginateCharacters;
 import com.alura.service.StickerApi;
@@ -94,7 +94,7 @@ public class MarvelApi implements StickerApi {
     this.characters.getCharacters().stream().forEach(character -> {
       try {
         System.out.print(character.getName() + "... ");
-        createSticker(Sticker.builder()
+        createSticker(ParamSticker.builder()
             .image(new URL(character.getThumbnailPath() + "." + character.getThumbnailExtension()).openStream())
             .targetWidth(1000)
             .targetHeight(1500)

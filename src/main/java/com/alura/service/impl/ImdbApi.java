@@ -10,7 +10,7 @@ import java.util.stream.Collectors;
 
 import com.alura.exception.StickerApiException;
 import com.alura.model.Endpoint;
-import com.alura.model.Sticker;
+import com.alura.model.ParamSticker;
 import com.alura.model.imdb.Movie;
 import com.alura.model.imdb.Poster;
 import com.alura.model.imdb.Rating;
@@ -103,7 +103,7 @@ public class ImdbApi implements StickerApi {
             System.out.print(movie.getTitle() + "... ");
             Double rating = Optional.ofNullable(movie.getImDbRating()).isPresent() ? movie.getImDbRating() : 0;
             String text = ratingText.floorEntry((int) Math.round(rating)).getValue();
-            createSticker(Sticker.builder()
+            createSticker(ParamSticker.builder()
                 .image(new URL(movie.getImage().replaceAll("\\._(.+).jpg$", ".jpg")).openStream())
                 .targetWidth(1000)
                 .targetHeight(1500)
