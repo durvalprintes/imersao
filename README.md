@@ -73,23 +73,24 @@ mvn clean package
 
 Exemplos da saída atual:
 
-![Saida Padrão](data/image/readme/Aula1.jpeg)
+![Saida Padrão da Api do IMDB](data/image/readme/Aula1.jpeg)
 
-![Saída com coleto de Nota](data/image/readme/Aula1comDesafioSupremo.jpeg)
+![Saída com coleto de Nota da Api do IMDB](data/image/readme/Aula1comDesafioSupremo.jpeg)
 
-![Geração de Stickers](data/image/readme/Aula2.jpeg)
-
-![Geração personalizada de Stickers](data/image/readme/Aula2comDesafios.jpeg)
+![Geração personalizada de Stickers da API do IMDB](data/image/readme/Aula2comDesafios.jpeg)
 
 ![Saída com informações da Api da MARVEL](data/image/readme/Aula3.jpeg)
+
+![Geração de Sticker da Api da MARVEL](data/image/readme/Aula3comDesafios.jpeg)
 
 ## 🔧 Desenvolvimento <a name = "desenvolvimento"></a>
 
 Conteúdo a partir da Aula 03:
 - [x] Reestruturação do projeto para consumir a Api da MARVEL.
 - [x] Sobrescrita do método de saída no terminal com informacões da nova Api;
-- [ ] Sobrescrita do método de geração de Stickers para imagens da nova Api;
-- [ ] Uso de uma classe de exceção personalizado;
+- [x] Sobrescrita do método de geração de Stickers para imagens da nova Api;
+- [x] Uso de uma classe de exceção personalizado;
+- [x] Automatizar a criação da instância da interface <strong>StickerApi</strong> de acordo com o _endpoint_ a ser consumido;
 - [ ] Upgrade da JDK do projeto, para implementar casos de uso com classes <strong>Record</strong>;
 
 

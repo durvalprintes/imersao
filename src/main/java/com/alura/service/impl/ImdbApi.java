@@ -8,12 +8,14 @@ import java.util.Optional;
 import java.util.TreeMap;
 import java.util.stream.Collectors;
 
+import com.alura.exception.StickerApiException;
 import com.alura.model.Endpoint;
 import com.alura.model.Sticker;
 import com.alura.model.imdb.Movie;
 import com.alura.model.imdb.Poster;
 import com.alura.model.imdb.Rating;
 import com.alura.service.StickerApi;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -29,22 +31,26 @@ public class ImdbApi implements StickerApi {
   private List<Movie> movies;
   private final TreeMap<Integer, String> ratingText = new TreeMap<>();
 
-  public ImdbApi(Endpoint endpoint, String key) throws IOException, InterruptedException {
+  public ImdbApi(Endpoint endpoint, String key) throws StickerApiException {
     this.key = key;
-    this.movies = this.getListImdb(endpoint);
+    this.movies = this.getData(endpoint);
   }
 
-  private List<Movie> getListImdb(Endpoint endpoint) throws IOException, InterruptedException {
+  private List<Movie> getData(Endpoint endpoint) throws StickerApiException {
     var mapper = new ObjectMapper();
-    return mapper.treeToValue(
-        mapper.readTree(jsonFromGet(endpoint.getUrl() + this.key)).get("items"),
-        mapper.getTypeFactory().constructCollectionType(
-            List.class,
-            Movie.class));
+    try {
+      return mapper.treeToValue(
+          mapper.readTree(jsonFromGet(endpoint.getUrl() + this.key)).get("items"),
+          mapper.getTypeFactory().constructCollectionType(
+              List.class,
+              Movie.class));
+    } catch (StickerApiException | JsonProcessingException e) {
+      throw new StickerApiException("Erro ao instanciar implementacao da API IMDB.", e);
+    }
   }
 
   @Override
-  public void print() {
+  public void printData() {
     for (Movie movie : this.movies) {
       printField("\033[1;37m", "\nTitulo: " + movie.getTitle());
       printField("\033[1;37m", "Image: " + movie.getImage());
@@ -59,34 +65,38 @@ public class ImdbApi implements StickerApi {
     }
   }
 
-  public void shrinkList(int min, int max) {
-    setMovies(this.movies.subList(min, max));
+  public void limitData(int max) {
+    setMovies(this.movies.subList(0, max));
   }
 
-  public void updateListWithInput(InputStream inputRating) throws IOException {
-    List<Rating> listRating = new ObjectMapper().readValue(inputRating, new TypeReference<List<Rating>>() {
-    });
-    if (!listRating.isEmpty()) {
-      this.movies = this.movies.stream()
-          .map(movie -> {
-            listRating.stream()
-                .filter(myRating -> myRating.getId().equals(movie.getId()))
-                .findFirst().ifPresent(rating -> movie.setMyRating(rating.getMyRating()));
-            return movie;
-          })
-          .collect(Collectors.toList());
+  public void updateDataWithInput(InputStream inputRating) throws StickerApiException {
+    try {
+      List<Rating> listRating = new ObjectMapper().readValue(inputRating, new TypeReference<List<Rating>>() {
+      });
+      if (!listRating.isEmpty()) {
+        this.movies = this.movies.stream()
+            .map(movie -> {
+              listRating.stream()
+                  .filter(myRating -> myRating.getId().equals(movie.getId()))
+                  .findFirst().ifPresent(rating -> movie.setMyRating(rating.getMyRating()));
+              return movie;
+            })
+            .collect(Collectors.toList());
+      }
+    } catch (IOException e) {
+      throw new StickerApiException("Erro ao inserir as notas personalizadas.", e);
     }
   }
 
   @Override
-  public void generateStickerImage() {
+  public void generateStickers() throws StickerApiException {
     ratingText.put(0, "AVALIAR");
     ratingText.put(1, "PESSIMO");
     ratingText.put(4, "RUIM");
     ratingText.put(6, "PASSATEMPO");
     ratingText.put(8, "TOP");
 
-    System.out.println("Iniciando geração de Stickers do IMDB...");
+    System.out.println("\nIniciando geração de Stickers do IMDB...");
     this.movies.stream().forEach(
         movie -> {
           try {
@@ -105,7 +115,7 @@ public class ImdbApi implements StickerApi {
                 .outputPath("data/image/sticker/")
                 .outputName(movie.getTitle()).build());
             System.out.println("Ok!");
-          } catch (IOException e) {
+          } catch (StickerApiException | IOException e) {
             System.out.println("Fail: " + e.getMessage());
           }
         });
@@ -117,10 +127,10 @@ public class ImdbApi implements StickerApi {
    * @return The Poster object at the IMDB Poster Endpoint
    * @see Poster
    */
-  private Poster getMoviePoster(Movie movie) {
+  private Poster getMoviePoster(Movie movie) throws StickerApiException {
     try {
       var mapper = new ObjectMapper();
-      var url = String.format("%s%s/%s", Endpoint.IMDB_POSTERS.getUrl(), this.key, movie.getId());
+      var url = String.format("%s%s/%s", Endpoint.POSTERS.getUrl(), this.key, movie.getId());
       Poster poster = mapper.treeToValue(
           mapper
               .readTree(jsonFromGet(url))
@@ -129,11 +139,8 @@ public class ImdbApi implements StickerApi {
           Poster.class);
       poster.setIdMovie(movie.getId());
       return poster;
-    } catch (IOException e) {
-      e.printStackTrace();
-    } catch (InterruptedException e) {
-      Thread.currentThread().interrupt();
+    } catch (StickerApiException | IOException e) {
+      throw new StickerApiException("Erro ao recuperar poster.", e);
     }
-    return null;
   }
 }
