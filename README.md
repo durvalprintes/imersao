@@ -93,7 +93,7 @@ Conteúdo a partir da Aula 03 e refatorações:
 - [x] Automatizar a criação da instância da interface <strong>StickerApi</strong> de acordo com o _endpoint_ a ser consumido;
 - [x] Upgrade da JDK do projeto, versao 17, para implementar casos de uso com classes <strong>Record</strong>;
 - [x] Uso de uma classe abstrata, para separar os metodos relacionados aos dados do consumo das Apis;
-- [ ] Adição de campo imagem em um modelo utilizado em uma terceira Api, desenvolvida em uma Challange de Back-end, para ser utilizada como um microserviço;
+- [ ] Adição de campo imagem em um modelo utilizado em uma terceira Api, desenvolvida em um Challange de Back-end na Alura, para ser utilizada como um microserviço: [Spring Boot API](https://github.com/durvalprintes/alura-challenge-spring-api)
 - [ ] Criacao da classe de implementacao para consumo desta última;
 
 
