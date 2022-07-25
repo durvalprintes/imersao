@@ -27,7 +27,7 @@ public class App {
 
     public static void main(String[] args) {
         try {
-            StickerApi api = getInstance(Endpoint.TOP_250_TV);
+            StickerApi api = getInstance(Endpoint.MOST_POPULAR_TV);
             api.limitData(10);
             api.updateDataWithInput(new FileInputStream(new File("data/rating.json")));
             api.printData();

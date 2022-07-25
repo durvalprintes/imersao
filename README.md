@@ -75,7 +75,7 @@ Exemplos da saída atual:
 
 ![Saida Padrão da Api do IMDB](data/image/readme/Aula1.jpeg)
 
-![Saída com coleto de Nota da Api do IMDB](data/image/readme/Aula1comDesafioSupremo.jpeg)
+![Saída com coleto de Nota da Api do IMDB](data/image/readme/Aula1ajustada.jpeg)
 
 ![Geração personalizada de Stickers da API do IMDB](data/image/readme/Aula2comDesafios.jpeg)
 
