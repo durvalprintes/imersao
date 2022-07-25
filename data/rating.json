@@ -1,10 +1,14 @@
 [
   {
-    "id": "tt0468569",
-    "myRating": 10
+    "title": "The Boys",
+    "rating": 9
   },
   {
-    "id": "tt0068646",
-    "myRating": 5
+    "title": "Better Call Saul",
+    "rating": 10
+  },
+  {
+    "title": "Stranger Things",
+    "rating": 9
   }
 ]

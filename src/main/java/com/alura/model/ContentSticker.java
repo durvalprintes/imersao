@@ -1,5 +1,8 @@
 package com.alura.model;
 
-public record ContentSticker(String title, String urlImage, Double rating, Double myRating) {
+import lombok.Builder;
+
+@Builder
+public record ContentSticker(String title, String urlImage, String rating, String myRating) {
 
 }

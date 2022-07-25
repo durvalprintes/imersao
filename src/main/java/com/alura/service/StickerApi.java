@@ -21,7 +21,6 @@ import javax.imageio.ImageIO;
 import com.alura.exception.StickerApiException;
 import com.alura.model.ParamSticker;
 
-@SuppressWarnings("squid:S106")
 public interface StickerApi {
 
   default String jsonFromGet(String url) throws StickerApiException {
@@ -36,10 +35,6 @@ public interface StickerApi {
       Thread.currentThread().interrupt();
     }
     return null;
-  }
-
-  default void printField(String format, String field) {
-    System.out.println(format + field + "\033[0m");
   }
 
   void limitData(int max);

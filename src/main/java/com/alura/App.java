@@ -1,5 +1,9 @@
 package com.alura;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+
 import com.alura.exception.StickerApiException;
 import com.alura.model.Endpoint;
 import com.alura.service.StickerApi;
@@ -23,11 +27,12 @@ public class App {
 
     public static void main(String[] args) {
         try {
-            StickerApi api = getInstance(Endpoint.CHARACTERS);
-            api.limitData(1);
+            StickerApi api = getInstance(Endpoint.TOP_250_TV);
+            api.limitData(10);
+            api.updateDataWithInput(new FileInputStream(new File("data/rating.json")));
             api.printData();
             api.generateStickers();
-        } catch (StickerApiException e) {
+        } catch (StickerApiException | FileNotFoundException e) {
             e.printStackTrace();
         }
     }
