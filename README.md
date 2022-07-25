@@ -85,16 +85,16 @@ Exemplos da saída atual:
 
 ## 🔧 Desenvolvimento <a name = "desenvolvimento"></a>
 
-Conteúdo a partir da Aula 03 e refatorações:
+Conteúdo a partir da Aula 03 e refatorações para Aula 04:
 - [x] Reestruturação do projeto para consumir a Api da MARVEL.
-- [x] Sobrescrita do método de saída no terminal com informacões da nova Api;
+- [x] Sobrescrita do método de saída no terminal com informações da nova Api;
 - [x] Sobrescrita do método de geração de Stickers para imagens da nova Api;
 - [x] Uso de uma classe de exceção personalizado;
 - [x] Automatizar a criação da instância da interface <strong>StickerApi</strong> de acordo com o _endpoint_ a ser consumido;
-- [x] Upgrade da JDK do projeto, versao 17, para implementar casos de uso com classes <strong>Record</strong>;
-- [x] Uso de uma classe abstrata, para separar os metodos relacionados aos dados do consumo das Apis;
-- [ ] Adição de campo imagem em um modelo utilizado em uma terceira Api, desenvolvida em um Challange de Back-end na Alura, para ser utilizada como um microserviço: [Spring Boot API](https://github.com/durvalprintes/alura-challenge-spring-api)
-- [ ] Criacao da classe de implementacao para consumo desta última;
+- [x] Upgrade da JDK do projeto, versão 17, para implementar casos de uso com classes <strong>Record</strong>;
+- [x] Uso de uma classe abstrata, para separar os métodos relacionados aos dados, oriundos do consumo das Apis;
+- [ ] Adição de campo imagem em um modelo utilizado em uma terceira Api, desenvolvida em um Challenge de Back-end na Alura, para ser utilizada como um microsserviço: [Spring Boot API](https://github.com/durvalprintes/alura-challenge-spring-api)
+- [ ] Criação da classe de implementação para consumo desta última;
 
 
 ## ⛏️ Ferramentas <a name = "ferramentas"></a>
