@@ -6,39 +6,41 @@ import java.net.URL;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.UUID;
-import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
+
+import org.springframework.stereotype.Component;
 
 import com.alura.exception.StickerApiException;
 import com.alura.model.ContentSticker;
 import com.alura.model.Endpoint;
 import com.alura.model.ParamSticker;
-import com.alura.service.AbstractDataApi;
+import com.alura.service.AbstractApi;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import lombok.Getter;
 import lombok.Setter;
 
+@Component
 @Getter
 @Setter
 @SuppressWarnings("squid:S106")
-public class MarvelApi extends AbstractDataApi {
+public class MarvelApi extends AbstractApi {
 
-  private static final UUID ID_REQUEST = UUID.randomUUID();
-  private String publicKey;
-  private String privateKey;
-
-  public MarvelApi(Endpoint endpoint, String publicKey, String privateKey) throws StickerApiException {
-    this.publicKey = publicKey;
-    this.privateKey = privateKey;
-    this.consumeApi(endpoint.getUrl());
+  @Override
+  public boolean accept(Endpoint endpoint) {
+    return Endpoint.isMarvel(endpoint);
   }
 
-  private void consumeApi(String url) throws StickerApiException {
+  @Override
+  public void consume(Endpoint endpoint) throws StickerApiException {
+    var publicKey = System.getProperty("marvel_public_key");
+    var privateKey = System.getProperty("marvel_private_key");
+    var id = UUID.randomUUID();
+
     try {
-      var json = this.jsonFromGet(String.format("%s?ts=%s&apikey=%s&hash=%s&limit=100", url, ID_REQUEST, publicKey,
-          new BigInteger(1, MessageDigest.getInstance("MD5").digest((ID_REQUEST + privateKey + publicKey).getBytes()))
+      var json = jsonFromGet(String.format("%s?ts=%s&apikey=%s&hash=%s&limit=100", endpoint.getUrl(), id, publicKey,
+          new BigInteger(1, MessageDigest.getInstance("MD5").digest((id + privateKey + publicKey).getBytes()))
               .toString(16)));
       setData(StreamSupport
           .stream(new ObjectMapper().readTree(json).get("data").get("results").spliterator(), false)
@@ -49,7 +51,7 @@ public class MarvelApi extends AbstractDataApi {
                       node.get("thumbnail").get("path").asText(),
                       node.get("thumbnail").get("extension").asText()))
               .build())
-          .collect(Collectors.toList()));
+          .toList());
     } catch (StickerApiException | JsonProcessingException | NoSuchAlgorithmException e) {
       throw new StickerApiException("Erro ao instanciar implementacao da API MARVEL.", e);
     }
@@ -68,7 +70,7 @@ public class MarvelApi extends AbstractDataApi {
             .text("IMERSÃO JAVA")
             .fontName("Impact")
             .fontSize(128)
-            .outputPath("data/image/sticker/")
+            .outputPath("data/image/sticker/marvel/")
             .outputName(data.title()).build());
         System.out.println("Ok!");
       } catch (StickerApiException | IOException e) {

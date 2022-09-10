@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 import com.alura.exception.StickerApiException;
 import com.alura.model.ContentSticker;
@@ -18,7 +17,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @SuppressWarnings("squid:S106")
-public abstract class AbstractDataApi implements StickerApi {
+public abstract class AbstractApi implements StickerApi {
 
   private List<ContentSticker> data;
 
@@ -27,7 +26,7 @@ public abstract class AbstractDataApi implements StickerApi {
     this.data = this.data.subList(0, max);
   }
 
-  public void printDataField(String format, String field) {
+  private void printDataField(String format, String field) {
     System.out.println(format + field + "\033[0m");
   }
 
@@ -62,7 +61,7 @@ public abstract class AbstractDataApi implements StickerApi {
               return personalRating.isPresent() ? new ContentSticker(content.title(), content.urlImage(),
                   content.rating(), personalRating.get().rating().toString()) : content;
             })
-            .collect(Collectors.toList()));
+            .toList());
       }
     } catch (IOException e) {
       throw new StickerApiException("Erro ao inserir as notas personalizadas.", e);
