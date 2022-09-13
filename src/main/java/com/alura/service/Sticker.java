@@ -14,30 +14,32 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.imageio.ImageIO;
 
 import com.alura.exception.StickerApiException;
 import com.alura.model.ParamSticker;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.Setter;
-
 public class Sticker {
+
+  private static final String WIDTH = "width";
+  private static final String HEIGHT = "height";
 
   public void create(ParamSticker param) throws StickerApiException {
     try {
       BufferedImage original = ImageIO.read(param.getImage());
-      var size = new StickerSize(original.getWidth(), original.getHeight());
 
-      formartSize(param, original, size);
+      Map<String, Integer> size = new HashMap<>();
 
-      BufferedImage sticker = new BufferedImage(size.getWidth(), size.getHeight() + param.getHeightPlus(),
+      formatSize(param, original, size);
+
+      BufferedImage sticker = new BufferedImage(size.get(WIDTH), size.get(HEIGHT) + param.getHeightPlus(),
           TRANSLUCENT);
 
       Graphics2D graphic = (Graphics2D) sticker.getGraphics();
-      graphic.drawImage(original, 0, 0, size.getWidth(), size.getHeight(), null);
+      graphic.drawImage(original, 0, 0, size.get(WIDTH), size.get(HEIGHT), null);
 
       formatTopImage(param, sticker, graphic);
 
@@ -51,15 +53,13 @@ public class Sticker {
     }
   }
 
-  private void formartSize(ParamSticker param, BufferedImage original, StickerSize size) {
-    if (size.getWidth() > param.getTargetWidth() || size.getHeight() > param.getTargetHeight()) {
-      Double scale = Math.min(
-          size.getWidth() > param.getTargetWidth() ? param.getTargetWidth() / Double.valueOf(size.getWidth()) : 1,
-          size.getHeight() > param.getTargetHeight() ? param.getTargetHeight() / Double.valueOf(size.getHeight())
-              : 1);
-      size.setWidth((int) (original.getWidth() * scale));
-      size.setHeight((int) (original.getHeight() * scale));
-    }
+  private void formatSize(ParamSticker param, BufferedImage original, Map<String, Integer> size) {
+    Double scale = Math.min(
+        original.getWidth() > param.getTargetWidth() ? param.getTargetWidth() / Double.valueOf(original.getWidth()) : 1,
+        original.getHeight() > param.getTargetHeight() ? param.getTargetHeight() / Double.valueOf(original.getHeight())
+            : 1);
+    size.put(WIDTH, (int) (original.getWidth() * scale));
+    size.put(HEIGHT, (int) (original.getHeight() * scale));
   }
 
   private void formatTopImage(ParamSticker param, BufferedImage sticker, Graphics2D graphic) throws IOException {
@@ -72,16 +72,16 @@ public class Sticker {
     }
   }
 
-  private void formatText(ParamSticker param, StickerSize size, BufferedImage sticker, Graphics2D graphic) {
+  private void formatText(ParamSticker param, Map<String, Integer> size, BufferedImage sticker, Graphics2D graphic) {
     var font = new Font(param.getFontName(), param.getFontStyle(), param.getFontSize());
 
     Shape textShape = new TextLayout(
         param.getText(), font, graphic.getFontRenderContext())
-        .getOutline(scaleText(param.getText(), size.getWidth(), font));
+        .getOutline(scaleText(param.getText(), size.get(WIDTH), font));
 
     graphic.translate((sticker.getWidth() - textShape.getBounds().width) / 2,
         ((param.getHeightPlus() - textShape.getBounds().height) / 2) + textShape.getBounds().height
-            + size.getHeight());
+            + size.get(HEIGHT));
 
     graphic.setColor(param.getTextColor());
     graphic.fill(textShape);
@@ -100,12 +100,4 @@ public class Sticker {
     }
     return null;
   }
-}
-
-@Getter
-@Setter
-@AllArgsConstructor
-class StickerSize {
-  private int width;
-  private int height;
 }
