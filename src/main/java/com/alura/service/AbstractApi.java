@@ -23,7 +23,8 @@ public abstract class AbstractApi implements StickerApi {
 
   @Override
   public void limitData(int max) {
-    this.data = this.data.subList(0, max);
+    if (max < data.size())
+      this.data = this.data.subList(0, max);
   }
 
   private void printDataField(String format, String field) {

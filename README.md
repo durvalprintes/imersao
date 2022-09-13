@@ -83,6 +83,8 @@ Exemplos da saída atual:
 
 ![Geração de Sticker da Api da MARVEL](data/image/readme/Aula3comDesafios.jpeg)
 
+![Geração de Sticker da Api da Alura Challenge](data/image/readme/Aula4.jpeg)
+
 ## 🔧 Desenvolvimento <a name = "desenvolvimento"></a>
 
 Conteúdo a partir da Aula 03 e refatorações para Aula 04:
@@ -93,8 +95,11 @@ Conteúdo a partir da Aula 03 e refatorações para Aula 04:
 - [x] Automatizar a criação da instância da interface <strong>StickerApi</strong> de acordo com o _endpoint_ a ser consumido;
 - [x] Upgrade da JDK do projeto, versão 17, para implementar casos de uso com classes <strong>Record</strong>;
 - [x] Uso de uma classe abstrata, para separar os métodos relacionados aos dados, oriundos do consumo das Apis;
-- [ ] Adição de campo imagem em um modelo utilizado em uma terceira Api, desenvolvida em um Challenge de Back-end na Alura, para ser utilizada como um microsserviço: [Spring Boot API](https://github.com/durvalprintes/alura-challenge-spring-api)
-- [ ] Criação da classe de implementação para consumo desta última;
+- [x] Adição de campo imagem e campos para cálculo de pontuação no modelo utilizado em uma terceira Api, desenvolvida em um Challenge de Back-end na Alura, para ser utilizada como um microsserviço: [Spring Boot API](https://github.com/durvalprintes/alura-challenge-spring-api)
+- [x] Implementação para consumo da Api Alura Challenge em localhost;
+- [ ] Criação de classes de testes;
+- [ ] Refatorações com base no SOLID e Design Pattern; 
+
 
 
 ## ⛏️ Ferramentas <a name = "ferramentas"></a>

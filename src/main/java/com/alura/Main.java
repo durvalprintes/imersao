@@ -13,7 +13,7 @@ public class Main {
     public static void main(String[] args) {
         try (AnnotationConfigApplicationContext applicationContext = new AnnotationConfigApplicationContext(
                 StickerConfig.class);) {
-            applicationContext.getBean(StickerApp.class).callApi(Endpoint.MOST_POPULAR_TV);
+            applicationContext.getBean(StickerApp.class).callApi(Endpoint.VIDEOS);
         } catch (StickerApiException | FileNotFoundException e) {
             e.printStackTrace();
         }
